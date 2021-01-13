@@ -8,6 +8,7 @@ walg_binary: /usr/local/bin/wal-g
 walg_user: postgres
 
 walg_env: /etc/default/wal-g
+walg_json: "~postgres/.walg.json"
 walg_script_path: /usr/local/scripts
 walg_data_path: /var/lib/postgresql/12/main
 

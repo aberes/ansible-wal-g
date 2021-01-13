@@ -79,6 +79,19 @@
   tags:
     - always
 
+- name: Merge walg env vars to single list
+  set_fact:
+    walg_vars: "{{ walg_common_combine + walg_aws_combine + walg_azure_combine + walg_gcs_combine + walg_swift_combine + walg_filesystem_combine + walg_mongodb_combine + walg_mysql_combine + walg_postgresql_combine }}"
+
+- name: Walg env vars to json
+  set_fact:
+    vars_json: "{{ walg_vars | list | items2dict(key_name='option', value_name='value') | to_nice_json }}"
+
+- name: Save wal-g config to json
+  copy:
+    content: "{{ vars_json }}"
+    dest: "{{ walg_json }}"
+
 - name: wal-g | check scripts directory
   file:
     path: "{{ walg_script_path }}"
